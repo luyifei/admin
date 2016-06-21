@@ -87,8 +87,8 @@
 
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FH
-							2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © Admin
+							2016-2016</span></font>
 				</div>
 			</div>
 		</div>
