@@ -87,23 +87,22 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	public Object login()throws Exception{
 		Map<String,String> map = new HashMap<String,String>();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+		PageData pd = this.getPageData();
 		String errInfo = "";
-		String KEYDATA[] = pd.getString("KEYDATA").replaceAll("qq313596790fh", "").replaceAll("QQ978336446fh", "").split(",fh,");
-		
-		if(null != KEYDATA && KEYDATA.length == 3){
+		String userName = pd.getString("loginname");
+		String password = pd.getString("password");
+		String code = pd.getString("code");
+		if(null != userName && password!=null && code!=null){
 			//shiro管理的session
 			Subject currentUser = SecurityUtils.getSubject();  
 			Session session = currentUser.getSession();
 			String sessionCode = (String)session.getAttribute(Const.SESSION_SECURITY_CODE);		//获取session中的验证码
 			
-			String code = KEYDATA[2];
 			if(null == code || "".equals(code)){
 				errInfo = "nullcode"; //验证码为空
 			}else{
-				String USERNAME = KEYDATA[0];
-				String PASSWORD  = KEYDATA[1];
+				String USERNAME = userName;
+				String PASSWORD  = password;
 				pd.put("USERNAME", USERNAME);
 				if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)){
 					String passwd = new SimpleHash("SHA-1", USERNAME, PASSWORD).toString();	//密码加密
@@ -183,7 +182,7 @@ public class LoginController extends BaseController {
 				
 				List<Menu> allmenuList = new ArrayList<Menu>();
 				
-				if(null == session.getAttribute(Const.SESSION_allmenuList)){
+				if(null == session.getAttribute(Const.SESSION_ALL_MENU_LIST)){
 					allmenuList = menuService.listAllMenu();
 					if(Tools.notEmpty(roleRights)){
 						for(Menu menu : allmenuList){
@@ -196,9 +195,9 @@ public class LoginController extends BaseController {
 							}
 						}
 					}
-					session.setAttribute(Const.SESSION_allmenuList, allmenuList);			//菜单权限放入session中
+					session.setAttribute(Const.SESSION_ALL_MENU_LIST, allmenuList);			//菜单权限放入session中
 				}else{
-					allmenuList = (List<Menu>)session.getAttribute(Const.SESSION_allmenuList);
+					allmenuList = (List<Menu>)session.getAttribute(Const.SESSION_ALL_MENU_LIST);
 				}
 				
 				//切换菜单=====
@@ -295,7 +294,7 @@ public class LoginController extends BaseController {
 		
 		session.removeAttribute(Const.SESSION_USER);
 		session.removeAttribute(Const.SESSION_ROLE_RIGHTS);
-		session.removeAttribute(Const.SESSION_allmenuList);
+		session.removeAttribute(Const.SESSION_ALL_MENU_LIST);
 		session.removeAttribute(Const.SESSION_menuList);
 		session.removeAttribute(Const.SESSION_QX);
 		session.removeAttribute(Const.SESSION_userpds);

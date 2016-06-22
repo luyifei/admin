@@ -5,7 +5,6 @@
 	<artifactId>admin</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FHM Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 
@@ -498,8 +497,22 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>com.os.jutils</groupId>
+			<artifactId>jutils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
-		<finalName>FHM</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>

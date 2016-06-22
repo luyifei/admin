@@ -11,7 +11,7 @@ public class Const {
 	public static final String SESSION_USER = "sessionUser";
 	public static final String SESSION_ROLE_RIGHTS = "sessionRoleRights";
 	public static final String SESSION_menuList = "menuList";			//当前菜单
-	public static final String SESSION_allmenuList = "allmenuList";		//全部菜单
+	public static final String SESSION_ALL_MENU_LIST = "allmenuList";		//全部菜单
 	public static final String SESSION_QX = "QX";
 	public static final String SESSION_userpds = "userpds";			
 	public static final String SESSION_USERROL = "USERROL";				//用户对象

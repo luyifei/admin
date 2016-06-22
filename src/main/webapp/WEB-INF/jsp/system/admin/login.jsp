@@ -110,11 +110,11 @@
 				
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
-				var code = "qq313596790fh"+loginname+",fh,"+password+"QQ978336446fh"+",fh,"+$("#code").val();
+				var code = $("#code").val();
 				$.ajax({
 					type: "POST",
 					url: 'login_login',
-			    	data: {KEYDATA:code,tm:new Date().getTime()},
+			    	data: {loginname:loginname, password:password, code:code, KEYDATA:code, tm:new Date().getTime()},
 					dataType:'json',
 					cache: false,
 					success: function(data){

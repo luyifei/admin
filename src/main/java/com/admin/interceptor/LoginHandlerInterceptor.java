@@ -12,20 +12,13 @@ import com.admin.entity.system.User;
 import com.admin.util.Const;
 import com.admin.util.Jurisdiction;
 /**
- * 
-* 类名称：LoginHandlerInterceptor.java
-* 类描述： 
-* @author FH
-* 作者单位： 
-* 联系方式：
-* 创建时间：2015年1月1日
-* @version 1.6
+* @author alex
+* 2016-6-21
  */
 public class LoginHandlerInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// TODO Auto-generated method stub
 		String path = request.getServletPath();
 		if(path.matches(Const.NO_INTERCEPTOR_PATH)){
 			return true;
@@ -45,7 +38,6 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter{
 				//登陆过滤
 				response.sendRedirect(request.getContextPath() + Const.LOGIN);
 				return false;		
-				//return true;
 			}
 		}
 	}
