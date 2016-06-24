@@ -8,17 +8,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.admin.entity.Page;
-import com.admin.util.Const;
 import com.admin.util.Logger;
 import com.admin.util.PageData;
-import com.admin.util.Tools;
 import com.admin.util.UuidUtil;
 
 public class BaseController {
 	
 	protected Logger logger = Logger.getLogger(this.getClass());
-
-	private static final long serialVersionUID = 6357869213649815390L;
 	
 	/**
 	 * 得到PageData
