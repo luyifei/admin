@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String path = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,14 +7,18 @@
 <title>${pd.SYSNAME}</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<%--  --%>
+<%@include file="/WEB-INF/jsp/base.jsp" %>
 <link rel="stylesheet" href="static/login/bootstrap.min.css" />
 <link rel="stylesheet" href="static/login/css/camera.css" />
 <link rel="stylesheet" href="static/login/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="static/login/matrix-login.css" />
-<link href="static/login/font-awesome.css" rel="stylesheet" />
-<script type="text/javascript" src="static/js/jquery-1.5.1.min.js"></script>
-
+<link rel="stylesheet" href="static/login/font-awesome.css"  />
+<script type="text/javascript" src="static/login/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="static/login/js/jquery.mobile.customized.min.js"></script>
+<script type="text/javascript" src="static/login/js/camera.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.singlePageNav.min.js"></script>
+<script type="text/javascript" src="static/login/js/templatemo_script.js"></script>
 </head>
 <body>
 
@@ -103,11 +103,9 @@
 	</div>
 
 	<script type="text/javascript">
-	
 		//服务器校验
 		function severCheck(){
 			if(check()){
-				
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
 				var code = $("#code").val();
@@ -150,7 +148,6 @@
 				});
 			}
 		}
-	
 		$(document).ready(function() {
 			changeCode();
 			$("#codeImg").bind("click", changeCode);
@@ -170,7 +167,6 @@
 		function changeCode() {
 			$("#codeImg").attr("src", "code.do?t=" + genTimestamp());
 		}
-
 		//客户端校验
 		function check() {
 
@@ -270,15 +266,7 @@
 			top.location.href = location.href;
 		}
 	</script>
-
-	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/jquery-1.7.2.js"></script>
-	<script src="static/login/js/jquery.easing.1.3.js"></script>
-	<script src="static/login/js/jquery.mobile.customized.min.js"></script>
-	<script src="static/login/js/camera.min.js"></script>
-	<script src="static/login/js/templatemo_script.js"></script>
-	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
-	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
+	
 </body>
 
 </html>

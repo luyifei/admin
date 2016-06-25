@@ -74,7 +74,7 @@ function online(){
 		
 		websocket.onopen = function() {
 			//连接成功
-			websocket.send('[join]'+user);
+			websocket.send('{"user":"'+user+'"}');
 		};
 		websocket.onerror = function() {
 			//连接失败
@@ -85,7 +85,9 @@ function online(){
 		//消息接收
 		websocket.onmessage = function(message) {
 			var message = JSON.parse(message.data);
+			console.log(message);
 			if (message.type == 'count') {
+				console.log(message.type);
 				userCount = message.msg;
 			}else if(message.type == 'goOut'){
 				$("body").html("");

@@ -20,10 +20,7 @@
 <body>
 
 	<div class="container-fluid" id="main-container">
-		
-
 			<div id="page-content" class="clearfix">
-
 				<div class="page-header position-relative">
 					<h1>
 						后台首页 <small><i class="icon-double-angle-right"></i> </small>
@@ -175,13 +172,6 @@
 								</table>
 							</div>
 						</div>
-
-
-
-
-
-
-
 						<div class="center">
 							<div style="float:left;">
 								<table border="0" width="50%">
@@ -216,12 +206,6 @@
 								</table>
 							</div>
 						</div>
-
-
-
-
-
-
 						<div class="center">
 							<div style="float:left;">
 								<table border="0" width="50%">
@@ -256,31 +240,9 @@
 								</table>
 							</div>
 						</div>
-
-
-
-
-
-
-
-
-
-
-
-
 					</div>
 				</div>
 				<!--/row-->
-
-
-
-
-
-
-
-
-
-
 		</div>
 		<!-- #main-content -->
 	</div>
@@ -290,11 +252,11 @@
 	</a>
 	<!-- basic scripts -->
 	<script src="static/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		window.jQuery
 				|| document
 						.write("<script src='static/js/jquery-1.9.1.min.js'>\x3C/script>");
-	</script>
+	</script> -->
 
 	<script src="static/js/bootstrap.min.js"></script>
 	<!-- page specific plugin scripts -->

@@ -35,7 +35,6 @@ public class BaseController {
 	 */
 	public HttpServletRequest getRequest() {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		
 		return request;
 	}
 
