@@ -32,7 +32,9 @@ import com.admin.util.Const;
 import com.admin.util.DateUtil;
 import com.admin.util.PageData;
 import com.admin.util.RightsHelper;
+import com.admin.util.SystemProperties;
 import com.admin.util.Tools;
+import com.os.jutils.PropertiesUtils;
 import com.os.jutils.StringUtils;
 
 /*
@@ -77,7 +79,9 @@ public class LoginController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); // 读取系统名称
+		String systemName = SystemProperties.getValue(Const.SYSTEM_NAME);
+		//Tools.readTxtFile(Const.SYSNAME)
+		pd.put("SYSNAME", systemName); // 读取系统名称
 		mv.setViewName("system/admin/login");
 		mv.addObject("pd", pd);
 		return mv;
