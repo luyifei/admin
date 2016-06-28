@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<title>${pd.SYSNAME}</title>
+<title>${systemName}</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%--  --%>
@@ -111,7 +111,7 @@
 				var code = $("#code").val();
 				$.ajax({
 					type: "POST",
-					url: 'login_login',
+					url: 'login/login',
 			    	data: {loginname:loginname, password:password, code:code, KEYDATA:code, tm:new Date().getTime()},
 					dataType:'json',
 					cache: false,

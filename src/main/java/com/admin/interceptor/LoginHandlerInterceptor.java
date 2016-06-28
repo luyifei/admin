@@ -21,6 +21,7 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String path = request.getServletPath();
 		if(path.matches(Const.NO_INTERCEPTOR_PATH)){
+			//符合正则表达式的不验证权限
 			return true;
 		}else{
 			//shiro管理的session

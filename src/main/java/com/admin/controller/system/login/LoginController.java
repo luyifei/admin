@@ -7,7 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -76,28 +78,25 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/login/toLogin")
 	public ModelAndView toLogin() throws Exception {
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+		ModelAndView mav = this.getModelAndView();
 		String systemName = SystemProperties.getValue(Const.SYSTEM_NAME);
-		//Tools.readTxtFile(Const.SYSNAME)
-		pd.put("SYSNAME", systemName); // 读取系统名称
-		mv.setViewName("system/admin/login");
-		mv.addObject("pd", pd);
-		return mv;
+		mav.setViewName("system/admin/login");
+		mav.addObject("systemName", systemName);
+		return mav;
 	}
 
 	/**
 	 * 请求登录，验证用户
+	 * @throws Exception 
 	 */
-	@RequestMapping(value = "/login_login", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/login/login", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public Object login() throws Exception {
+	public Object login(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String userName = request.getParameter("loginname");
+		String password = request.getParameter("password");
 		Map<String, String> map = new HashMap<String, String>();
 		PageData pd = this.getPageData();
 		String errInfo = "";
-		String userName = pd.getString("loginname");
-		String password = pd.getString("password");
 		String code = pd.getString("code");
 		if (null != userName && password != null && code != null) {
 			// shiro管理的session
