@@ -4,7 +4,7 @@
 <mapper namespace="UserMapper">
 	<sql id="userColumns">USERNAME,NAME,PASSWORD,RIGHTS,STATUS,ROLE_ID</sql>
 
-	<resultMap type="User" id="userAndRoleResultMap">
+	<resultMap type="com.admin.entity.system.User" id="userAndRoleResultMap">
 		<id column="USER_ID" property="USER_ID"/>
 		<result column="USERNAME" property="USERNAME"/>
 		<result column="PASSWORD" property="PASSWORD"/>
@@ -20,7 +20,7 @@
 			<result column="ROLE_RIGHTS" property="RIGHTS"/>
 		</association>
 	</resultMap>
-	<resultMap type="User" id="userResultMap">
+	<resultMap type="com.admin.entity.system.User" id="userResultMap">
 		<id column="USER_ID" property="USER_ID"/>
 		<result column="USERNAME" property="USERNAME"/>
 		<result column="PASSWORD" property="PASSWORD"/>
@@ -32,9 +32,21 @@
 		<result column="ROLE_ID" property="ROLE_ID"/>
 		<result column="SKIN" property="SKIN"/>
 	</resultMap>
+	<resultMap type="com.admin.system.entity.User" id="userMap">
+		<id property="userId" column="USER_ID"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="name" column="NAME"/>
+		<result property="rights" column="RIGHTS"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="ip" column="IP"/>
+		<result property="status" column="STATUS"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="skin" column="SKIN"/>
+	</resultMap>
 	
 	<!-- 判断用户名和密码 -->
-	<select id="getUserInfo" parameterType="User" resultMap="userResultMap">
+	<select id="getUserInfo" parameterType="com.admin.entity.system.User" resultMap="userResultMap">
 		select * from SYS_USER 
 		where 1=1
 		<if test="USERNAME!=null and PASSWORD!=null">
@@ -62,10 +74,23 @@
 		and u.USER_ID=#{USER_ID}
 	</select>
 
-	<update id="updateLastLogin" parameterType="User">
+	<update id="updateLastLogin" parameterType="com.admin.entity.system.User">
 		update SYS_USER set 
 		LAST_LOGIN=#{LAST_LOGIN} 
 		where USER_ID=#{USER_ID}
 	</update>
+	
+	<select id="authUser" parameterType="java.util.Map" resultMap="userMap"> 
+		SELECT
+			username,
+			name,
+			password,
+			rights,
+			status,
+			role_id
+		FROM
+			sys_user
+		WHERE username = #{userName} and password=#{password}
+	</select>
 	
 </mapper>

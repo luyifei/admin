@@ -74,7 +74,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!--  以一个单独的"/"指示这个Web应用程序默认的Servlet(如果没有匹配到其他的servlet，就默认使用该servlet处理映射)-->
-	<!-- springMVC---LoginHandlerInterceptor---Controller -->
+	<!-- springMVC LoginHandlerInterceptor Controller -->
 	<servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>/</url-pattern>

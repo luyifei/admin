@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -29,6 +28,8 @@ import com.admin.entity.system.User;
 import com.admin.service.system.menu.MenuService;
 import com.admin.service.system.role.RoleService;
 import com.admin.service.system.user.UserService;
+import com.admin.system.entity.SimpleAuthToken;
+import com.admin.system.enumeration.ExceptionCode;
 import com.admin.util.AppUtil;
 import com.admin.util.Const;
 import com.admin.util.DateUtil;
@@ -36,7 +37,6 @@ import com.admin.util.PageData;
 import com.admin.util.RightsHelper;
 import com.admin.util.SystemProperties;
 import com.admin.util.Tools;
-import com.os.jutils.PropertiesUtils;
 import com.os.jutils.StringUtils;
 
 /*
@@ -44,7 +44,7 @@ import com.os.jutils.StringUtils;
  */
 @Controller
 public class LoginController extends BaseController {
-	
+
 	@Resource(name = "userService")
 	private UserService userService;
 	@Resource(name = "menuService")
@@ -84,14 +84,31 @@ public class LoginController extends BaseController {
 		mav.addObject("systemName", systemName);
 		return mav;
 	}
+	@RequestMapping(value = "/login/login", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Object login2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userName = request.getParameter("loginname");
+		String password = request.getParameter("password");
+		Integer resultCode;
+		//通过shiro对登录进行验证
+		Subject subject = SecurityUtils.getSubject();
+		SimpleAuthToken token = new SimpleAuthToken(userName, password);
+		try {
+			subject.login(token);
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+			resultCode = ExceptionCode.AUTHENTICATION_FAILURE.getCode();
+		}
+		return null;
+	}
 
 	/**
 	 * 请求登录，验证用户
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
-	@RequestMapping(value = "/login/login", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public Object login(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	
+	public Object login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userName = request.getParameter("loginname");
 		String password = request.getParameter("password");
 		Map<String, String> map = new HashMap<String, String>();

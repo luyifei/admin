@@ -107,7 +107,7 @@
 		</bean>
 		
 		<!-- 項目自定义的Realm -->
-	    <bean id="ShiroRealm" class="com.admin.interceptor.shiro.ShiroRealm"></bean>
+	    <bean id="ShiroRealm" class="com.admin.system.realm.ShiroRealm"></bean>
 		
 		<!-- Shiro Filter -->
 		<!--shiro主过滤器的配置，这里的名字和web中的要对应  -->  
