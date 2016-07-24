@@ -3,7 +3,9 @@ package com.admin.system.enumeration;
 public enum ExceptionCode {
 	SUCCESS(0, "成功"),
 	/** 认证失败 **/
-	AUTHENTICATION_FAILURE(1, "认证失败");
+	AUTHENTICATION_FAILURE(1, "认证失败"),
+	/** 验证码错误 **/
+	CODE_ERROR(2, "验证码错误");
 	private final Integer code;
 	private final String message;
 

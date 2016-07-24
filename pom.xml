@@ -451,12 +451,16 @@
 		</dependency>
 		<!-- shiro-all -->
 		<dependency>
-			<groupId>shiro</groupId>
-			<artifactId>shiro</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/shiro-all-1.2.3.jar</systemPath>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.6</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
 		<!-- sun.misc.BASE64Decoder -->
 		<dependency>
 			<groupId>sun-misc</groupId>

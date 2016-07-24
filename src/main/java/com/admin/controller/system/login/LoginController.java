@@ -30,6 +30,7 @@ import com.admin.service.system.role.RoleService;
 import com.admin.service.system.user.UserService;
 import com.admin.system.entity.SimpleAuthToken;
 import com.admin.system.enumeration.ExceptionCode;
+import com.admin.system.exception.CodeErrorException;
 import com.admin.util.AppUtil;
 import com.admin.util.Const;
 import com.admin.util.DateUtil;
@@ -84,22 +85,34 @@ public class LoginController extends BaseController {
 		mav.addObject("systemName", systemName);
 		return mav;
 	}
+
 	@RequestMapping(value = "/login/login", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Object login2(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userName = request.getParameter("loginname");
 		String password = request.getParameter("password");
-		Integer resultCode;
-		//通过shiro对登录进行验证
+		String code = request.getParameter("code");
+		Integer resultCode = ExceptionCode.SUCCESS.getCode();
+		// 通过shiro对登录进行验证
 		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		String sessionCode = (String) session.getAttribute(Const.SESSION_SECURITY_CODE); // 获取session中的验证码
 		SimpleAuthToken token = new SimpleAuthToken(userName, password);
+
 		try {
+			if (!sessionCode.equalsIgnoreCase(code)) {
+				throw new CodeErrorException();
+			}
 			subject.login(token);
-		} catch (AuthenticationException e) {
+		}catch(CodeErrorException e){
+			resultCode = ExceptionCode.CODE_ERROR.getCode();
+			return resultCode;
+		}catch (AuthenticationException e) {
 			e.printStackTrace();
 			resultCode = ExceptionCode.AUTHENTICATION_FAILURE.getCode();
+			return resultCode;
 		}
-		return null;
+		return resultCode;
 	}
 
 	/**
@@ -107,7 +120,7 @@ public class LoginController extends BaseController {
 	 * 
 	 * @throws Exception
 	 */
-	
+
 	public Object login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userName = request.getParameter("loginname");
 		String password = request.getParameter("password");
