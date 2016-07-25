@@ -42,14 +42,12 @@ public class SimpleAuthToken implements AuthenticationToken {
 
 	@Override
 	public Object getCredentials() {
-		//TODO 
-		return null;
+		return this.password;
 	}
 
 	@Override
 	public Object getPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.userName;
 	}
 
 	@Override

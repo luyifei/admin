@@ -37,7 +37,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		if(token instanceof SimpleAuthToken){
 			SimpleAuthToken simpleAuthToken = (SimpleAuthToken)token;
-			//TODO 去数据库查询数据进行验证
+			// 去数据库查询数据进行验证
 			try {
 				userService.authToken(simpleAuthToken);
 			} catch (Exception e) {

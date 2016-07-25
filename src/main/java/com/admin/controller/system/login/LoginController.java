@@ -18,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,10 +106,11 @@ public class LoginController extends BaseController {
 			}
 			subject.login(token);
 		}catch(CodeErrorException e){
+			logger.info(e.getMessage(),e);
 			resultCode = ExceptionCode.CODE_ERROR.getCode();
 			return resultCode;
 		}catch (AuthenticationException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage(),e);
 			resultCode = ExceptionCode.AUTHENTICATION_FAILURE.getCode();
 			return resultCode;
 		}
