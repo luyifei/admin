@@ -103,7 +103,7 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public Object findForObject(String str, Object obj) throws Exception {
+	public Object findForObject(String str, Object obj){
 		return sqlSessionTemplate.selectOne(str, obj);
 	}
 

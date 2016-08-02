@@ -22,29 +22,26 @@ public class ShiroRealm extends AuthorizingRealm {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Override
 	public boolean supports(AuthenticationToken token) {
-		if(token instanceof SimpleAuthToken){
+		if (token instanceof SimpleAuthToken) {
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * 登录信息和用户信息验证
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		if(token instanceof SimpleAuthToken){
-			SimpleAuthToken simpleAuthToken = (SimpleAuthToken)token;
+		if (token instanceof SimpleAuthToken) {
+			SimpleAuthToken simpleAuthToken = (SimpleAuthToken) token;
 			// 去数据库查询数据进行验证
-			try {
-				userService.authToken(simpleAuthToken);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(simpleAuthToken.getUserName(),simpleAuthToken.getPassword(),getName());
+			userService.authToken(simpleAuthToken);
+			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(simpleAuthToken.getPrincipal(),
+					simpleAuthToken.getCredentials(), getName());
 			return info;
 		}
 		return null;
