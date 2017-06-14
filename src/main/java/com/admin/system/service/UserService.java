@@ -28,5 +28,9 @@ public class UserService {
 		if (user == null) {
 			throw new UnknownAccountException();
 		}
+		//TODO
+//		ShiroUser shiro = new ShiroUser(Long.parseLong(user.getId() + ""), user.getName());
+//      shiro.setPermission(resourceEnNames);
+//		simpleAuthToken.setPrincipal(shiro);
 	}
 }

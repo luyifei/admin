@@ -9,6 +9,8 @@ public class SimpleAuthToken implements AuthenticationToken {
 	private String userName;
 	private String password;
 	private String googleAuthToken;
+	
+	private ShiroUser principal;
 
 	public String getUserName() {
 		return userName;
@@ -42,18 +44,19 @@ public class SimpleAuthToken implements AuthenticationToken {
 
 	@Override
 	public Object getCredentials() {
-		return this.password;
+		return "";
 	}
 
 	@Override
 	public Object getPrincipal() {
-		return this.userName;
+		return this.principal;
 	}
 
 	@Override
 	public String toString() {
 		return "SimpleAuthToken [userName=" + userName + ", password=" + password + ", googleAuthToken="
-				+ googleAuthToken + "]";
+				+ googleAuthToken + ", principal=" + principal + "]";
 	}
+
 
 }

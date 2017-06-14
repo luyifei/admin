@@ -97,7 +97,10 @@
 		<!-- mapper扫描 -->
 		<property name="mapperLocations" value="classpath:mybatis/*/*.xml"></property>
 	</bean>
-
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      <property name="basePackage" value="com.admin.system.dao" />
+      <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
@@ -108,7 +111,7 @@
 		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
 	</bean> -->
 	<!-- 配置进行授权和认证的Realm -->
-	<bean id="ShiroRealm" class="com.admin.system.realm.ShiroRealm"></bean>
+	<bean id="ShiroRealm" class="com.admin.interceptor.shiro.ShiroRealm"></bean>
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- <property name="cacheManager" ref="cacheManager" /> -->
 		<property name="realm" ref="ShiroRealm" />

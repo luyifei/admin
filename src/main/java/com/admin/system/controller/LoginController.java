@@ -1,4 +1,4 @@
-package com.admin.controller.system.login;
+package com.admin.system.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,12 +38,14 @@ import com.admin.util.PageData;
 import com.admin.util.RightsHelper;
 import com.admin.util.SystemProperties;
 import com.admin.util.Tools;
+import com.os.jutils.MediaTypes;
 import com.os.jutils.StringUtils;
 
 /*
  * 总入口
  */
-@Controller
+/*@Controller*/
+@RequestMapping("/login2")
 public class LoginController extends BaseController {
 
 	@Resource(name = "userService")
@@ -78,7 +79,7 @@ public class LoginController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/login/toLogin")
+	@RequestMapping(value = "/toLogin")
 	public ModelAndView toLogin() throws Exception {
 		ModelAndView mav = this.getModelAndView();
 		String systemName = SystemProperties.getValue(Const.SYSTEM_NAME);
@@ -87,9 +88,17 @@ public class LoginController extends BaseController {
 		return mav;
 	}
 
-	
+	/**
+	 * 进行登录验证
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/doLogin", produces = MediaTypes.JSON_UTF_8)
+	@ResponseBody
 	public Object login2(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userName = request.getParameter("loginname");
+		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String code = request.getParameter("code");
 		Integer resultCode = ExceptionCode.SUCCESS.getCode();
@@ -121,8 +130,7 @@ public class LoginController extends BaseController {
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/login/login", produces = "application/json;charset=UTF-8")
-	@ResponseBody
+
 	public Object login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userName = request.getParameter("loginname");
 		String password = request.getParameter("password");
@@ -132,7 +140,7 @@ public class LoginController extends BaseController {
 		String code = pd.getString("code");
 		if (null != userName && password != null && code != null) {
 			// shiro管理的session
- 			Subject currentUser = SecurityUtils.getSubject();
+			Subject currentUser = SecurityUtils.getSubject();
 			Session session = currentUser.getSession();
 			String sessionCode = (String) session.getAttribute(Const.SESSION_SECURITY_CODE); // 获取session中的验证码
 
