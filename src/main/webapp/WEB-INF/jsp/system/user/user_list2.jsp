@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags/simpletable" prefix="simpletable"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,12 +21,9 @@
 <div id="page-content" class="clearfix">
                         
   <div class="row-fluid">
-
-
     <div class="row-fluid">
-    
             <!-- 检索  -->
-            <form action="user/listUsers.do" method="post" name="userForm" id="userForm">
+            <form action="systemUser/listUsers.do" method="post" name="queryForm" id="queryForm">
             <table>
                 <tr>
                     <td>
@@ -33,10 +31,7 @@
                 </tr>
             </table>
             <!-- 检索  -->
-        
-        
             <table id="table_report" class="table table-striped table-bordered table-hover">
-                
                 <thead>
                     <tr>
                         <th class="center">
@@ -50,48 +45,44 @@
                         <th><i class="icon-envelope"></i>邮箱</th>
                         <th><i class="icon-time hidden-phone"></i>最近登录</th>
                         <th>上次登录IP</th>
+                        <th>上次登录IP</th>
                         <th class="center">操作</th>
                     </tr>
                 </thead>
-                                        
                 <tbody>
-                    
-                <!-- 开始循环 -->   
-                        <c:forEach items="${userList}" var="user" varStatus="vs">
-                                    
+                    <c:choose>
+                    <c:when test="${not empty page.result}">
+                        <!-- 开始循环 -->   
+                        <c:forEach items="${page.result}" var="item" varStatus="vs">
                             <tr>
                                 <td class='center' style="width: 30px;">
+                                  <label><input type='checkbox' name='ids' value="${item.id }" alt="${user.userName}"/><span class="lbl"></span></label>
                                 </td>
-                                <td class='center' style="width: 30px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class='center' style="width: 30px;">${item.userName}</td>
+                                <td class='center' style="width: 30px;">${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.userName}</td>
                                 <td style="width: 60px;">
                                     <a class='btn btn-mini btn-danger' title="不能删除"><i class='icon-trash'></i></a>
                                 </td>
                             </tr>
-                        
                         </c:forEach>
-                        <tr class="main_info">
-                            <td colspan="10" class="center">没有相关数据</td>
-                        </tr>
+                        </c:when>
+                        <c:otherwise>
+	                        <tr class="main_info">
+	                            <td colspan="10" class="center">没有相关数据</td>
+	                        </tr>
+                        </c:otherwise>
+                    </c:choose>
                 </tbody>
             </table>
-            
-        <div class="page-header position-relative">
-        <table style="width:100%;">
-            <tr>
-                <td style="vertical-align:top;">
-                    <a class="btn btn-small btn-success" onclick="add();">新增</a>
-                </td>
-                <td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
-            </tr>
-        </table>
-        </div>
+            <simpletable:pageToolbar page="${page}">
+            </simpletable:pageToolbar>
         </form>
     </div>
   
@@ -118,8 +109,12 @@
         
         
         <script type="text/javascript" src="static/js/jquery.tips.js"></script><!--提示框-->
+        <script type="text/javascript" src="<c:url value="/widgets/simpletable/simpletable.js"/>"></script>
         <script type="text/javascript">
-        
+        $(document).ready(function() {
+            // 分页需要依赖的初始化动作
+            window.simpleTable = new SimpleTable('queryForm',${page.thisPageNumber},${page.pageSize},'${pageRequest.sortColumns}');
+        });
         $(top.hangge());
         
         //检索
@@ -136,9 +131,7 @@
             
             
         });
-        
         </script>
-        
     </body>
 </html>
 

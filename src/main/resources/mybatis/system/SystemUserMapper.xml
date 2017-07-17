@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.admin.system.dao.SystemUserMapper">
+<mapper namespace="SystemUserMapper">
 	<resultMap id="BaseResultMap" type="com.admin.system.model.SystemUser">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="user_name" jdbcType="VARCHAR" property="userName" />
@@ -17,23 +17,21 @@
 		<result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
 		<result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
 	</resultMap>
-	<sql id="Base_Column_List">
-		id, user_name, password, name, status, remark, skin, email, number,
-		phone, google_auth,
-		google_auth_status, gmt_create, gmt_modified
-	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from t_system_user
-		where id = #{id,jdbcType=BIGINT}
+	<sql id="columns">
+	    id, user_name, password, name, status, remark, skin, email, number, phone, google_auth, google_auth_status, gmt_create, gmt_modified
+    </sql>
+	<select id="SystemUser_getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="columns"/>
+		FROM 
+		  t_system_user
+		WHERE id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_system_user
-		where id = #{id,jdbcType=BIGINT}
+		DELETE from t_system_user
+		WHERE id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.admin.system.model.SystemUser">
+	<insert id="SystemUser_insert" parameterType="com.admin.system.model.SystemUser">
 		insert into t_system_user (id, user_name, password,
 		name, status, remark, skin,
 		email, number, phone,
@@ -201,4 +199,10 @@
 		gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	<select id="list" parameterType="com.admin.system.model.SystemUserQuery" resultMap="BaseResultMap">
+	   select <include refid="columns"/> from t_system_user 
+	</select>
+	<select id="list_count" parameterType="com.admin.system.model.SystemUserQuery" resultType="java.lang.Long">
+       select count(1) from (select <include refid="columns"/> from t_system_user ) t
+    </select>
 </mapper>

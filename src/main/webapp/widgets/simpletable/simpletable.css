@@ -1,0 +1,183 @@
+.gridTable {
+	margin: 0;
+	margin-top: 18px;
+	padding: 0;
+	font-size: 12px;
+}
+
+.gridTable .action {
+	margin-bottom: 18px;
+}
+
+.gridTable .gridTable-tips {
+	line-height: 36px;
+	text-indent: 1em;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ccc;
+	color: #000;
+	margin-top: 5px;
+	border-top-left-radius: 3px;
+	border-top-right-radius-radius: 3px;
+	    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+/** grid body */
+.gridBody {
+    border: 2px solid #337ab7;
+	line-height: 36px;
+	margin-bottom: 3px;
+	border-color: #cfd9db;
+    border-radius: 3px;
+}
+
+.gridBody th {
+/* 	border-left: 1px solid silver; */
+	border-bottom: 2px solid silver;
+	vertical-align: middle;
+	background-color: #293846;
+	padding: 0 10px 0 0;
+	font-size: 14px;
+	color: #fff;
+    border-color: #293846;
+    height: 50px;
+}
+
+.gridBody td {
+	border-left: 1px solid silver;
+	border-bottom: 1px solid silver;
+	color: black;
+	text-align: center;
+	font-size: 13px;
+}
+
+.gridBody td a {
+	padding: 3px 6px;
+	background: transparent;
+	color: #5B90BF;
+    font-size: 14px;
+/*     font-weight: bold; */
+}
+.gridBody td a:hover {
+	color: #3a6994;
+}
+/** grid header sort */
+.gridBody th.sort {
+	
+}
+
+.gridBody th.sort.desc {
+	background: #c5c5c5 url(images/sort_desc.gif) center right no-repeat
+}
+
+.gridBody th.sort.asc {
+	background: #c5c5c5 url(images/sort_asc.gif) center right no-repeat
+}
+
+/** mouse hove over sort header */
+.gridBody .tableHeaderSortHover {
+	background-color: #f5f5f5 !important;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/** gridBody row colors */
+.gridBody .odd {
+	background-color: #FFFFFF;
+}
+
+.gridBody .even {
+	background-color: #f5f5f5;
+}
+
+.gridBody .highlight {
+	background-color: #def1fd !important;
+}
+
+/** grid toolbar */
+.gridToolbar .leftControls {
+	
+}
+
+.gridToolbar .paginationControls .buttonLabel {
+	margin: 0 0 0 12px
+}
+
+.gridToolbar .box div {
+	display: inline;
+	float: left;
+}
+
+.gridToolbar .box .paginationControls {
+	float: right;
+}
+
+.gridToolbar td {
+	background-color: #F4F4F4;
+	line-height: 36px;
+	color: #666;
+}
+
+.gridBody .odd a, .even a {
+/* 	font-size: 12px; */
+	/* 	color: 005C9C !important; */
+}
+
+.innerDiv {
+	float: left;
+	line-height: 23px;
+	max-width: 699px;
+}
+
+.innerDiv li {
+	list-style-type: none;
+	float: left;
+	margin-left: 8px;
+}
+
+.innerDiv ul {
+	float: left;
+	padding: 0;
+}
+
+.innerDiv li em {
+	font-weight: bold;
+	color: #222;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.simple-table-total>td {
+	color : red;
+}
+
+.money.money-important{
+/* 	color: #CC3300; */
+}
+.money-profit-good{
+	color: red;
+}
+.money-profit-bad{
+	color: green;
+}
+.gridBody td a.agent-link{
+	background: transparent;
+	color: #5B90BF;
+    font-size: 13px;
+    font-weight: bold;
+}
+.gridBody td a.agent-link:hover{
+	color: #3a6994;;
+}
+.gridBody .even.tr-team-head{
+	background: #fcf8e3;
+}
+
+.gridBody .tr-team-head td{
+	border-bottom: 3px solid silver;
+}

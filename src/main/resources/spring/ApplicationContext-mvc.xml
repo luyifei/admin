@@ -29,10 +29,14 @@
 	</mvc:interceptors>
 	 
 	<!-- 配置SpringMVC的视图解析器 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
-	</bean>
+	</bean> -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 	
 	<bean id="exceptionResolver" class="com.admin.resolver.MyExceptionResolver"></bean>
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
