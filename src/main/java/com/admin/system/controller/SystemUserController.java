@@ -1,7 +1,6 @@
 package com.admin.system.controller;
 
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.admin.base.controller.BaseController;
 import com.admin.base.dao.Page;
-import com.admin.system.model.SystemUser;
-import com.admin.system.model.SystemUserQuery;
+import com.admin.system.entity.SystemUser;
+import com.admin.system.entity.SystemUserQuery;
 import com.admin.system.service.ISystemUserService;
 import com.google.gson.Gson;
 
@@ -32,7 +31,7 @@ public class SystemUserController extends BaseController {
         ModelAndView mav = new ModelAndView();
         Page<SystemUser> page = systemUserService.listPage(systemUserQuery);
         mav.addObject("page", page);
-        // mav.setViewName("system/user/user_list2");
+        mav.addObject("query", systemUserQuery);
         mav.setViewName("systemUser/list");
         return mav;
     }
@@ -61,8 +60,8 @@ public class SystemUserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/save")
     public void save(HttpServletRequest request, HttpServletResponse response, SystemUser systemUser) {
-        System.out.println(systemUser.toString());
-        //systemUserService.save(systemUser);
+        //System.out.println(systemUser.toString());
+        systemUserService.save(systemUser);
         outJson(response, "保存成功");
     }
 
@@ -81,7 +80,7 @@ public class SystemUserController extends BaseController {
     @RequestMapping(value = "/update")
     public ModelAndView update(HttpServletRequest request, HttpServletResponse response, SystemUser systemUser)
             throws Exception {
-        systemUserService.save(systemUser);
+        systemUserService.update(systemUser);
         return new ModelAndView(LIST_ACTION);
     }
 

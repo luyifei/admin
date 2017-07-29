@@ -20428,7 +20428,7 @@ input.typeahead.scrollable ~ .tt-menu {
   }
   
 }
-/* 新增  */
+/* 新增页面表格样式  */
 .table-detail td > .table-info {
   width: 100%;
 }
@@ -20507,3 +20507,16 @@ input.typeahead.scrollable ~ .tt-menu {
 .table-value > span + span.editable-container:before {
   display: none;
 }
+/** 查询页面表格样式**/
+.search-key {
+    width: 70px;
+    text-align: right;
+    padding-bottom:10px;
+}
+.search-value {
+    width: 220px;
+    text-align: center;
+    padding-bottom:10px;
+}
+
+

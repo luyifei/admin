@@ -23,13 +23,35 @@
   <div class="row-fluid">
     <div class="page-content">
             <!-- 检索  -->
-            <form action="systemUser/list.do" method="post" name="queryForm" id="queryForm">
-            <table>
-                <tr>
-                    <td>
-                    </td>
-                </tr>
-            </table>
+            <form action="systemUser/list.do" method="post" name="searchForm" id="searchForm">
+            <div class="tabbable">
+                <div class="tab-content">
+                      <div id="home" class="tab-pane fade in active">
+                        <table>
+		                    <tr>
+		                        <td class="search-key">
+		                                                                            用户名
+		                        </td>
+		                        <td class="search-value">
+		                              <input class="input-large" id="userName" type="text" name="userName" value="${query.userName}" placeholder="这里输入关键词" />
+		                        </td>
+		                        <td class="search-key">
+                                                                                                    姓名
+                                </td>
+		                        <td class="search-value">
+		                              <input class="input-large" id="name" type="text" name="name" value="${query.name}" placeholder="这里输入关键词" />
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                      <td colspan="10">
+                                     <a class="btn btn-sm btn-primary" onclick="submit();">搜索 <i class="ace-icon glyphicon glyphicon-search"></i></a>
+                                     <a class="btn btn-sm btn-primary" onclick="create();">新增 <i class="ace-icon glyphicon glyphicon-plus"></i></a>
+                                </td>
+		                    </tr>
+		                </table>
+                      </div>
+                </div>
+            </div>
             <!-- 检索  -->
             <table id="table_report" class="table table-striped table-bordered table-hover">
                 <thead>
@@ -76,7 +98,6 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <a class='btn btn-xs btn-primary' title="新增" onclick="create();"><i class='ace-icon fa fa-pencil-square-o'></i></a>
                                     <a class='btn btn-xs btn-primary' title="编辑" onclick="edit(${item.id});"><i class='ace-icon fa fa-pencil-square-o'></i></a>
                                     <a class='btn btn-xs btn-warning' title="详情" onclick="show(${item.id});"><i class='ace-icon fa fa-info-circle'></i></a>
                                     <a class='btn btn-xs btn-danger' title="删除" onclick="remove(${item.id});"><i class='ace-icon fa fa-trash-o'></i></a>
@@ -124,7 +145,7 @@
         <script type="text/javascript">
         $(document).ready(function() {
             // 分页需要依赖的初始化动作
-            window.simpleTable = new SimpleTable('queryForm',${page.thisPageNumber},${page.pageSize},'${pageRequest.sortColumns}');
+            window.simpleTable = new SimpleTable('searchForm',${page.thisPageNumber},${page.pageSize},'${pageRequest.sortColumns}');
             
           //复选框
             $('table th input:checkbox').on('click' , function(){
@@ -136,20 +157,18 @@
                 });
                     
             });
+            $(top.hangge());
         });
-        $(top.hangge());
-        
         //检索
-        function search(){
-            top.jzts();
-            $("#userForm").submit();
+        function submit(){
+        	$("#searchForm").submit();
         }
         function create(){
         	layer.open({
         		  type: 2,
         		  title: '新增',
         		  area: ['800px', '650px'],
-        		  fixed: false, //不固定
+        		  fixed: false,
         		  maxmin: true,
         		  content: 'systemUser/create.do'
         		});
@@ -159,7 +178,7 @@
                   type: 2,
                   title: '编辑',
                   area: ['800px', '650px'],
-                  fixed: false, //不固定
+                  fixed: false,
                   maxmin: true,
                   content: 'systemUser/edit.do?id='+id
                 });
@@ -169,9 +188,9 @@
                   type: 2,
                   title: '详情',
                   area: ['800px', '650px'],
-                  fixed: false, //不固定
+                  fixed: false,
                   maxmin: true,
-                  content: 'systemUser/show.do'
+                  content: 'systemUser/show.do?id='+id
                 });
         }
         function remove(){
@@ -179,12 +198,12 @@
                   type: 2,
                   title: '新增',
                   area: ['800px', '650px'],
-                  fixed: false, //不固定
+                  fixed: false,
                   maxmin: true,
                   content: 'systemUser/create.do'
                 });
         }
-        function switchStatus(this.id,'status',${item.id}){
+        <%-- function switchStatus(id,'status',id2){
             if(id != hcid1){
                 hcid1 = id;
                 qxhc1 = '';
@@ -211,7 +230,7 @@
                         //document.location.reload();
                     }
                 });
-        }
+        } --%>
         </script>
     </body>
 </html>

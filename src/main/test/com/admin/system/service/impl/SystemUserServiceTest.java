@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.BaseTest;
-import com.admin.system.model.SystemUser;
-import com.admin.system.model.SystemUserQuery;
+import com.admin.system.entity.SystemUser;
+import com.admin.system.entity.SystemUserQuery;
 import com.admin.system.service.ISystemUserService;
 import com.sobet.bms.admin.service.AccountLogManager;
 import com.sobet.bms.admin.vo.query.AccountLogQuery;
@@ -26,7 +26,7 @@ public class SystemUserServiceTest extends BaseTest {
     @Test
     public void testListUsers() {
         SystemUserQuery systemUserQuery = new SystemUserQuery();
-        systemUserService.listUsers(systemUserQuery);
+        systemUserService.listSystemUser(systemUserQuery);
     }
 
     @Test

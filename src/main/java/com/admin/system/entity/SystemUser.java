@@ -1,4 +1,4 @@
-package com.admin.system.model;
+package com.admin.system.entity;
 
 import java.util.Date;
 

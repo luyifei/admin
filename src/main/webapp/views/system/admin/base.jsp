@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="scripts/ace/assets/css/ace-fonts.css" />
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="scripts/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="scripts/ace/assets/css/ace.css?v=10011" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="scripts/ace/assets/css/ace-skins.css" />
     <link rel="stylesheet" href="scripts/ace/assets/css/ace-rtl.css" />
 

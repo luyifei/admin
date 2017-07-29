@@ -53,7 +53,7 @@ function save(){
                                 }
                            },
                            function(){
-                             parent.$('#queryForm').submit();
+                             parent.$('#searchForm').submit();
                            });
               }
           });

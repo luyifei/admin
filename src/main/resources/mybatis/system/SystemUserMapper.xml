@@ -27,7 +27,7 @@
 		  t_system_user
 		WHERE id = #{id,jdbcType=BIGINT}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+	<delete id="SystemUser_deleteByPrimaryKey" parameterType="java.lang.Long">
 		DELETE from t_system_user
 		WHERE id = #{id,jdbcType=BIGINT}
 	</delete>
@@ -182,7 +182,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.admin.system.model.SystemUser">
+	<update id="SystemUser_update" parameterType="com.admin.system.model.SystemUser">
 		update t_system_user
 		set user_name = #{userName,jdbcType=VARCHAR},
 		password = #{password,jdbcType=VARCHAR},
@@ -199,10 +199,54 @@
 		gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	
+	<sql id="list_where">
+        <where>
+            <if test="userName != null and userName != ''">
+              AND user_name LIKE CONCAT('%', #{userName,jdbcType=VARCHAR} ,'%') 
+            </if>
+            <if test="password != null">
+              AND password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+              AND name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+              AND status = #{status,jdbcType=BIT}
+            </if>
+            <if test="remark != null">
+              AND remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="skin != null">
+              AND skin = #{skin,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null">
+              AND email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="number != null">
+              AND number = #{number,jdbcType=VARCHAR}
+            </if>
+            <if test="phone != null">
+              AND phone = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="googleAuth != null">
+              AND google_auth = #{googleAuth,jdbcType=VARCHAR}
+            </if>
+            <if test="googleAuthStatus != null">
+              AND google_auth_status = #{googleAuthStatus,jdbcType=BIT}
+            </if>
+            <if test="gmtCreate != null">
+              AND gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="gmtModified != null">
+              AND gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
 	<select id="list" parameterType="com.admin.system.model.SystemUserQuery" resultMap="BaseResultMap">
-	   select <include refid="columns"/> from t_system_user 
+	   SELECT <include refid="columns"/> FROM t_system_user <include refid="list_where" />
 	</select>
 	<select id="list_count" parameterType="com.admin.system.model.SystemUserQuery" resultType="java.lang.Long">
-       select count(1) from (select <include refid="columns"/> from t_system_user ) t
+       SELECT COUNT(1) FROM (SELECT <include refid="columns"/> FROM t_system_user <include refid="list_where" />) t
     </select>
 </mapper>
