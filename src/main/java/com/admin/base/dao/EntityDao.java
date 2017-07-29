@@ -14,18 +14,18 @@ import org.springframework.dao.DataAccessException;
  */
 public interface EntityDao<E, PK extends Serializable> {
 
-    public Object getById(PK id) throws DataAccessException;
+    public E getById(PK id) throws DataAccessException;
 
-    public void removeById(PK id) throws DataAccessException;
+    public int removeById(PK id) throws DataAccessException;
 
     /** 插入数据 */
-    public void save(E entity) throws DataAccessException;
+    public int save(E entity) throws DataAccessException;
 
     /** 更新数据 */
-    public void update(E entity) throws DataAccessException;
+    public int update(E entity) throws DataAccessException;
 
     /** 根据id检查是否插入或是更新数据 */
-    public void saveOrUpdate(E entity) throws DataAccessException;
+    public int saveOrUpdate(E entity) throws DataAccessException;
 
     public boolean isUnique(E entity, String uniquePropertyNames) throws DataAccessException;
 

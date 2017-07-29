@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 import com.admin.base.entity.BaseQuery;
 import com.admin.base.util.PropertyUtils;
 
-
 /**
  * 
  * @author sunny
@@ -31,11 +30,12 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
     private SqlSessionTemplate sqlSessionTemplate;
+
     @Override
     protected void checkDaoConfig() throws IllegalArgumentException {
         Assert.notNull(sqlSessionFactory, "sqlSessionFactory must be not null");
     }
-    
+
     @Override
     protected void initDao() throws Exception {
         this.sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
@@ -55,29 +55,36 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
         return sqlSessionTemplate;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Object getById(PK primaryKey) {
+    public E getById(PK primaryKey) {
         Object object = getSqlSessionTemplate().selectOne(getFindByPrimaryKeyStatement(), primaryKey);
-        return object;
+        return (E) object;
     }
+
     @Override
-    public void removeById(PK id) {
+    public int removeById(PK id) {
         int affectCount = getSqlSessionTemplate().delete(getDeleteStatement(), id);
+        return affectCount;
     }
+
     @Override
-    public void save(E entity) {
+    public int save(E entity) {
         prepareObjectForSaveOrUpdate(entity);
         int affectCount = getSqlSessionTemplate().insert(getInsertStatement(), entity);
+        return affectCount;
     }
+
     @Override
-    public void update(E entity) {
+    public int update(E entity) {
         prepareObjectForSaveOrUpdate(entity);
         int affectCount = getSqlSessionTemplate().update(getUpdateStatement(), entity);
+        return affectCount;
     }
-    
 
     /**
      * 用于子类覆盖,在insert,update之前调用
+     * 
      * @param o
      */
     protected void prepareObjectForSaveOrUpdate(E o) {
@@ -96,11 +103,11 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
     }
 
     public String getUpdateStatement() {
-        return getIbatisMapperNamesapce() + ".update";
+        return getIbatisMapperNamesapce() + "_update";
     }
 
     public String getDeleteStatement() {
-        return getIbatisMapperNamesapce() + ".delete";
+        return getIbatisMapperNamesapce() + "_deleteByPrimaryKey";
     }
 
     public String getCountStatementForPaging(String statementName) {
@@ -111,10 +118,9 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
         return pageQuery(getSqlSessionTemplate(), statementName, getCountStatementForPaging(statementName), baseQuery);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> Page<T> pageQuery(SqlSessionTemplate sqlSessionTemplate, String statementName,
             String countStatementName, BaseQuery baseQuery) {
-        //统计总记录数
+        // 统计总记录数
         Number totalCount = (Number) sqlSessionTemplate.selectOne(countStatementName, baseQuery);
         if (totalCount == null || totalCount.longValue() <= 0) {
             return new Page<T>(baseQuery, 0);
@@ -122,8 +128,10 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
 
         Page<T> page = new Page<T>(baseQuery, totalCount.intValue());
 
-        // 其它分页参数,用于不喜欢或是因为兼容性而不使用方言(Dialect)的分页用户使用. 与getSqlMapClientTemplate().queryForList(statementName, parameterObject)配合使用
-        Map<String, Object>  filters = new HashMap<String, Object>();
+        // 其它分页参数,用于不喜欢或是因为兼容性而不使用方言(Dialect)的分页用户使用.
+        // 与getSqlMapClientTemplate().queryForList(statementName,
+        // parameterObject)配合使用
+        Map<String, Object> filters = new HashMap<String, Object>();
         filters.put("offset", page.getFirstResult());
         filters.put("pageSize", page.getPageSize());
         filters.put("lastRows", page.getFirstResult() + page.getPageSize());
@@ -136,20 +144,24 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
         page.setResult(list);
         return page;
     }
+
     @Override
     public List<E> findAll() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public boolean isUnique(E entity, String uniquePropertyNames) {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public void flush() {
         // ignore
     }
+
     @Override
-    public void saveOrUpdate(E entity) {
+    public int saveOrUpdate(E entity) {
         throw new UnsupportedOperationException();
     }
 
@@ -182,8 +194,10 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
             });
         }
 
-        public List selectList(final String statement, final Object parameter, final int offset, final int limit) {
-            return (List) execute(new SqlSessionCallback() {
+        @SuppressWarnings("unchecked")
+        public <E> List<E> selectList(final String statement, final Object parameter, final int offset,
+                final int limit) {
+            return (List<E>) execute(new SqlSessionCallback() {
 
                 public Object doInSession(SqlSession session) {
                     return session.selectList(statement, parameter, new RowBounds(offset, limit));
@@ -191,8 +205,9 @@ public abstract class BaseIbatis3Dao<E, PK extends Serializable> extends DaoSupp
             });
         }
 
-        public List selectList(final String statement, final Object parameter) {
-            return (List) execute(new SqlSessionCallback() {
+        @SuppressWarnings("unchecked")
+        public <E> List<E> selectList(final String statement, final Object parameter) {
+            return (List<E>) execute(new SqlSessionCallback() {
 
                 public Object doInSession(SqlSession session) {
                     return session.selectList(statement, parameter);
