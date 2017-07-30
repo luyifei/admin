@@ -8,15 +8,11 @@ import com.admin.BaseTest;
 import com.admin.system.entity.SystemUser;
 import com.admin.system.entity.SystemUserQuery;
 import com.admin.system.service.ISystemUserService;
-import com.sobet.bms.admin.service.AccountLogManager;
-import com.sobet.bms.admin.vo.query.AccountLogQuery;
 
 @Service
 public class SystemUserServiceTest extends BaseTest {
     @Autowired
     ISystemUserService systemUserService;
-    @Autowired
-    AccountLogManager accountLogManager;
 
     @Test
     public void testGetUser() {
@@ -60,9 +56,4 @@ public class SystemUserServiceTest extends BaseTest {
         }
     }
 
-    @Test
-    public void testAccountLogManager() {
-        AccountLogQuery query = new AccountLogQuery();
-        accountLogManager.findPage(query);
-    }
 }

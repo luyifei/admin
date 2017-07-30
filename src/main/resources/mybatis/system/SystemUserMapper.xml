@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SystemUserMapper">
-	<resultMap id="BaseResultMap" type="com.admin.system.model.SystemUser">
+	<resultMap id="BaseResultMap" type="com.admin.system.entity.SystemUser">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="user_name" jdbcType="VARCHAR" property="userName" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
@@ -31,13 +31,13 @@
 		DELETE from t_system_user
 		WHERE id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="SystemUser_insert" parameterType="com.admin.system.model.SystemUser">
-		insert into t_system_user (id, user_name, password,
+	<insert id="SystemUser_insert" parameterType="com.admin.system.entity.SystemUser">
+		INSERT INTO t_system_user (id, user_name, password,
 		name, status, remark, skin,
 		email, number, phone,
 		google_auth, google_auth_status, gmt_create,
 		gmt_modified)
-		values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
+		VALUES (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{remark,jdbcType=VARCHAR},
 		#{skin,jdbcType=VARCHAR},
@@ -46,7 +46,7 @@
 		#{gmtCreate,jdbcType=TIMESTAMP},
 		#{gmtModified,jdbcType=TIMESTAMP})
 	</insert>
-	<insert id="insertSelective" parameterType="com.admin.system.model.SystemUser">
+	<insert id="insertSelective" parameterType="com.admin.system.entity.SystemUser">
 		insert into t_system_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -137,7 +137,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.admin.system.model.SystemUser">
+	<update id="updateByPrimaryKeySelective" parameterType="com.admin.system.entity.SystemUser">
 		update t_system_user
 		<set>
 			<if test="userName != null">
@@ -182,7 +182,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="SystemUser_update" parameterType="com.admin.system.model.SystemUser">
+	<update id="SystemUser_update" parameterType="com.admin.system.entity.SystemUser">
 		update t_system_user
 		set user_name = #{userName,jdbcType=VARCHAR},
 		password = #{password,jdbcType=VARCHAR},
@@ -243,10 +243,10 @@
             </if>
         </where>
     </sql>
-	<select id="list" parameterType="com.admin.system.model.SystemUserQuery" resultMap="BaseResultMap">
+	<select id="list" parameterType="com.admin.system.entity.SystemUserQuery" resultMap="BaseResultMap">
 	   SELECT <include refid="columns"/> FROM t_system_user <include refid="list_where" />
 	</select>
-	<select id="list_count" parameterType="com.admin.system.model.SystemUserQuery" resultType="java.lang.Long">
+	<select id="list_count" parameterType="com.admin.system.entity.SystemUserQuery" resultType="java.lang.Long">
        SELECT COUNT(1) FROM (SELECT <include refid="columns"/> FROM t_system_user <include refid="list_where" />) t
     </select>
 </mapper>
